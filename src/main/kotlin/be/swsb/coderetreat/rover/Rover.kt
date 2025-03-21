@@ -14,8 +14,8 @@ data class Rover(
 
     private fun executeCommand(command: Command): Rover = viaCircuitBreaker {
         when (command) {
-            Command.Forwards -> copy(at = this.at + facing.vector)
-            Command.Backwards -> copy(at = this.at - facing.vector)
+            Command.Forwards -> copy(at = at + facing.vector)
+            Command.Backwards -> copy(at = at - facing.vector)
             Command.Right -> copy(facing = facing.clockwise())
             Command.Left -> copy(facing = facing.counterClockwise())
         }
