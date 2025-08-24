@@ -1,5 +1,6 @@
 package be.swsb.coderetreat.rover
 
+import be.swsb.coderetreat.rover.Command.*
 import be.swsb.coderetreat.rover.obstacledetection.Scanner
 
 data class Rover(
@@ -14,10 +15,10 @@ data class Rover(
 
     private fun executeCommand(command: Command): Rover = viaCircuitBreaker {
         when (command) {
-            Command.Forwards -> copy(at = at + facing.vector)
-            Command.Backwards -> copy(at = at - facing.vector)
-            Command.Right -> copy(facing = facing.clockwise())
-            Command.Left -> copy(facing = facing.counterClockwise())
+            Forwards -> copy(at = at + facing.vector)
+            Backwards -> copy(at = at - facing.vector)
+            Right -> copy(facing = facing.clockwise())
+            Left -> copy(facing = facing.counterClockwise())
         }
     }
 
