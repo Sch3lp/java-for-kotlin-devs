@@ -2,6 +2,7 @@ package be.swsb.coderetreat.javarover;
 
 import be.swsb.coderetreat.rover.Direction;
 import be.swsb.coderetreat.rover.Position;
+import be.swsb.coderetreat.rover.obstacledetection.RandomScanner;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -12,6 +13,7 @@ import java.util.stream.Stream;
 import static be.swsb.coderetreat.rover.Command.*;
 import static be.swsb.coderetreat.rover.Direction.*;
 import static be.swsb.coderetreat.rover.RoverKt.at;
+import static kotlin.random.RandomKt.Random;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -20,13 +22,13 @@ class JavaRoverTest {
 //    @ParameterizedTest
 //    @MethodSource("forwardsCriteria")
 //    void aRoverCanMoveForwards(Position startingPosition, Direction facing, Position expectedPosition) {
-//        final var initialJavaRover = new JavaRover()
+//        final var initialJavaRover = JavaRover()
 //                .withAt(startingPosition)
 //                .withFacing(facing);
 //
 //        final var actual = initialJavaRover.receiveCommands(Forwards);
 //
-//        final var expectedJavaRover = new JavaRover()
+//        final var expectedJavaRover = JavaRover()
 //                .withAt(expectedPosition)
 //                .withFacing(facing);
 //
@@ -36,13 +38,13 @@ class JavaRoverTest {
 //    @ParameterizedTest
 //    @MethodSource("backwardsCriteria")
 //    void aRoverCanMoveBackwards(Position startingPosition, Direction facing, Position expectedPosition) {
-//        final var initialJavaRover = new JavaRover()
+//        final var initialJavaRover = JavaRover()
 //                .withAt(startingPosition)
 //                .withFacing(facing);
 //
 //        final var actual = initialJavaRover.receiveCommands(Backwards);
 //
-//        final var expectedJavaRover = new JavaRover()
+//        final var expectedJavaRover = JavaRover()
 //                .withAt(expectedPosition)
 //                .withFacing(facing);
 //
@@ -51,31 +53,41 @@ class JavaRoverTest {
 //
 //    @Test
 //    void aRoverCanTurnRightAndLeft() {
-//        var rover = new JavaRover().withFacing(North);
+//        var rover = JavaRover().withFacing(North);
 //
 //        rover = rover.receiveCommands(Right);
-//        assertThat(rover).isEqualTo(new JavaRover().withFacing(East));
+//        assertThat(rover).isEqualTo(JavaRover().withFacing(East));
 //
 //        rover = rover.receiveCommands(Right);
-//        assertThat(rover).isEqualTo(new JavaRover().withFacing(South));
+//        assertThat(rover).isEqualTo(JavaRover().withFacing(South));
 //
 //        rover = rover.receiveCommands(Right);
-//        assertThat(rover).isEqualTo(new JavaRover().withFacing(West));
+//        assertThat(rover).isEqualTo(JavaRover().withFacing(West));
 //
 //        rover = rover.receiveCommands(Right);
-//        assertThat(rover).isEqualTo(new JavaRover().withFacing(North));
+//        assertThat(rover).isEqualTo(JavaRover().withFacing(North));
 //
 //        rover = rover.receiveCommands(Left);
-//        assertThat(rover).isEqualTo(new JavaRover().withFacing(West));
+//        assertThat(rover).isEqualTo(JavaRover().withFacing(West));
 //
 //        rover = rover.receiveCommands(Left);
-//        assertThat(rover).isEqualTo(new JavaRover().withFacing(South));
+//        assertThat(rover).isEqualTo(JavaRover().withFacing(South));
 //
 //        rover = rover.receiveCommands(Left);
-//        assertThat(rover).isEqualTo(new JavaRover().withFacing(East));
+//        assertThat(rover).isEqualTo(JavaRover().withFacing(East));
 //
 //        rover = rover.receiveCommands(Left);
-//        assertThat(rover).isEqualTo(new JavaRover().withFacing(North));
+//        assertThat(rover).isEqualTo(JavaRover().withFacing(North));
+//    }
+//
+//    @Test
+//    void aRoverStopsExecutingWhenItEncounteredAnObstacle() {
+//        final var scanner = new RandomScanner(Random(5));
+//        final var initialRover = JavaRover().withScanner(scanner); //Will scan something on the 5th move
+//
+//        final var actual = initialRover.receiveCommands(Forwards, Forwards, Forwards, Forwards, Forwards, Forwards, Backwards);
+//
+//        assertThat(actual).isEqualTo(JavaRover().withAt(at(0, 4)).withScanner(scanner).withIgnoringCommands(true));
 //    }
 
     static Stream<Arguments> forwardsCriteria() {
